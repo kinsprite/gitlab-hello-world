@@ -1,0 +1,26 @@
+# This file is a template, and might need editing before it works on your project.
+image: gitlab-runner-golang:latest
+
+variables:
+  # Please edit to your GitLab project
+  REPO_NAME: my-devops.com/ksqzq/hello-world
+
+
+stages:
+  - test
+  - build
+  - deploy
+
+format:
+  stage: test
+  script:
+    - go vet $(go list ./... | grep -v /vendor/)
+    - go test -race $(go list ./... | grep -v /vendor/)
+
+compile:
+  stage: build
+  script:
+    - go build -tags=jsoniter -race -ldflags "-extldflags '-static'" -o $CI_PROJECT_DIR/gitlab-hello-world
+  artifacts:
+    paths:
+      - gitlab-hello-world

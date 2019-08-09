@@ -11,7 +11,10 @@ var json = jsoniter.ConfigCompatibleWithStandardLibrary
 
 func main() {
 	println("Hello world")
+	mainRouter().Run(":8080") // 监听并在 0.0.0.0:8080 上启动服务
+}
 
+func mainRouter() *gin.Engine {
 	engine := gin.New()
 
 	engine.GET("/healthz", func(c *gin.Context) {
@@ -32,5 +35,15 @@ func main() {
 		})
 	})
 
-	engine.Run(":8080") // 监听并在 0.0.0.0:8080 上启动服务
+	engine.GET("/add", func(c *gin.Context) {
+		a := 2
+		b := 8
+		result := add(a, b)
+
+		c.JSON(http.StatusOK, gin.H{
+			"result": result,
+		})
+	})
+
+	return engine
 }

@@ -3,8 +3,10 @@ image: gitlab-runner-golang:latest
 
 variables:
   # Please edit to your GitLab project
-  REPO_NAME: my-devops.com/ksqzq/hello-world
+  REPO_NAME: 192.168.80.113/ksqzq/hello-world
 
+before_script:
+  - cd $CI_PROJECT_DIR
 
 stages:
   - test

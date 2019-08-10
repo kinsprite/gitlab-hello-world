@@ -4,6 +4,7 @@ image: golang:1.12.7-alpine3.10
 variables:
   # Please edit to your GitLab project
   REPO_NAME: 192.168.80.113/ksqzq/hello-world
+  CI_DEBUG_TRACE: "true"
 
 before_script:
   - cd $CI_PROJECT_DIR
@@ -36,6 +37,7 @@ testing_job2:
   tags: [docker]
   script:
     - echo testing job 2...
+    - echo SHA $CI_COMMIT_SHA
 
 compiling_job:
   stage: build

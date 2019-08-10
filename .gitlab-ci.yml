@@ -55,6 +55,16 @@ building_job:
   tags: [docker]
   script:
     - echo this is building docker image...
-    - docker build -t gitlab-hello-world-image .
+    - docker build -t gitlab-hello-world .
+    - docker tag gitlab-hello-world:latest my-ubuntu-dev.com/gitlab-hello-world:$CI_COMMIT_SHA
+    - docker push my-ubuntu-dev.com/gitlab-hello-world:$CI_COMMIT_SHA
     #- docker tag ...
     #- docker push ...
+
+deploying_job:
+  #image: docker:stable
+  stage: deploy
+  tags: [docker]
+  script:
+    - echo this is deploying...
+    - echo helm install charts/gitlab-hello-world --name gitlab-hello-world --set image.repository=my-ubuntu-dev.com/gitlab-hello-world --set image.tag=$CI_COMMIT_SHA

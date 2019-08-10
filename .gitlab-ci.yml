@@ -21,6 +21,7 @@ format:
   script:
     - echo this is testing...
     - go mod vendor
+    - go build -mod=vendor -tags=jsoniter -o gitlab-hello-world .
     - go vet -mod=vendor .
     - go test -mod=vendor .
     #- go test .

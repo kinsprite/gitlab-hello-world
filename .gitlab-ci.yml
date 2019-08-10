@@ -19,7 +19,8 @@ format:
   stage: test
   tags: [docker]
   script:
-    - go test .
+    - echo this is testing...
+    #- go test .
     #- go fmt $(go list ./... | grep -v /vendor/)
     #- go vet $(go list ./... | grep -v /vendor/)
     #- go test -race $(go list ./... | grep -v /vendor/)
@@ -28,7 +29,9 @@ compile:
   stage: build
   tags: [docker]
   script:
-    - go build -tags=jsoniter -o $CI_PROJECT_DIR/gitlab-hello-world .
+    - echo this is building...
+    - go mod vendor
+    - go build -tags=jsoniter -o gitlab-hello-world .
     #- go build -tags=jsoniter -race -ldflags "-extldflags '-static'" -o $CI_PROJECT_DIR/gitlab-hello-world
   artifacts:
     paths:

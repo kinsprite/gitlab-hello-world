@@ -17,7 +17,7 @@ stages:
   - build
   - deploy
 
-format:
+testing_job:
   stage: test
   tags: [docker]
   script:
@@ -30,7 +30,13 @@ format:
     #- go vet $(go list ./... | grep -v /vendor/)
     #- go test -race $(go list ./... | grep -v /vendor/)
 
-compile:
+testing_job2:
+  stage: test
+  tags: [docker]
+  script:
+    - echo testing job 2...
+
+building_job:
   stage: build
   tags: [docker]
   script:
@@ -38,6 +44,6 @@ compile:
     - go mod vendor
     - go build -mod=vendor -tags=jsoniter -o gitlab-hello-world .
     #- go build -tags=jsoniter -race -ldflags "-extldflags '-static'" -o $CI_PROJECT_DIR/gitlab-hello-world
-  artifacts:
-    paths:
-      - gitlab-hello-world
+  #artifacts:
+  #  paths:
+  #    - gitlab-hello-world

@@ -4,7 +4,7 @@ image: golang:1.12.7-alpine3.10
 variables:
   # Please edit to your GitLab project
   REPO_NAME: 192.168.80.113/ksqzq/hello-world
-  CI_DEBUG_TRACE: "true"
+  CI_DEBUG_TRACE: "false"
 
 before_script:
   - cd $CI_PROJECT_DIR
@@ -57,8 +57,9 @@ building_job:
   tags: [docker]
   script:
     - echo this is building docker image...
-    - docker build -t gitlab-hello-world .
-    - docker tag gitlab-hello-world:latest my-ubuntu-dev.com/gitlab-hello-world:$CI_COMMIT_SHA
+    #- docker build -t gitlab-hello-world .
+    #- docker tag gitlab-hello-world:latest my-ubuntu-dev.com/gitlab-hello-world:$CI_COMMIT_SHA
+    - docker build -t my-ubuntu-dev.com/gitlab-hello-world:$CI_COMMIT_SHA .
     - docker push my-ubuntu-dev.com/gitlab-hello-world:$CI_COMMIT_SHA
     #- docker tag ...
     #- docker push ...

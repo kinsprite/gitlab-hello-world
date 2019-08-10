@@ -48,7 +48,7 @@ compiling_job:
   #artifacts:
   #  paths:
   #    - gitlab-hello-world
-  
+
 building_job:
   image: docker:stable
   stage: docker_image

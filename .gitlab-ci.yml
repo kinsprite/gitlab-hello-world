@@ -15,6 +15,7 @@ before_script:
 stages:
   - test
   - build
+  - docker_image
   - deploy
 
 testing_job:
@@ -36,14 +37,24 @@ testing_job2:
   script:
     - echo testing job 2...
 
-building_job:
+compiling_job:
   stage: build
   tags: [docker]
   script:
-    - echo this is building...
+    - echo this is compiling...
     - go mod vendor
     - go build -mod=vendor -tags=jsoniter -o gitlab-hello-world .
     #- go build -tags=jsoniter -race -ldflags "-extldflags '-static'" -o $CI_PROJECT_DIR/gitlab-hello-world
   #artifacts:
   #  paths:
   #    - gitlab-hello-world
+  
+building_job:
+  image: docker:stable
+  stage: docker_image
+  tags: [docker]
+  script:
+    - echo this is building docker image...
+    - docker build -t gitlab-hello-world-image .
+    #- docker tag ...
+    #- docker push ...

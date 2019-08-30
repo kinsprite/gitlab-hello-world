@@ -65,7 +65,7 @@ building_job:
     #- docker push ...
 
 deploying_job:
-  image: alpine/helm:latest
+  image: dtzar/helm-kubectl:latest
   stage: deploy
   tags: [docker]
   script:

@@ -4,7 +4,7 @@ image: golang:1.12.7-alpine3.10
 variables:
   # Please edit to your GitLab project
   REPO_NAME: gitlab.qinzhiqiang.cn/ksqzq/gitlab-hello-world
-  CI_DEBUG_TRACE: "false"
+  CI_DEBUG_TRACE: "true"
 
 before_script:
   - cd $CI_PROJECT_DIR
@@ -72,4 +72,5 @@ deploying_job:
     - echo this is deploying...
     - mkdir /root/.kube
     - cp $KUBE_CONFIG_FILE /root/.kube/config
+    - helm init --client-only
     - helm install charts/gitlab-hello-world --name gitlab-hello-world --set image.repository=registry.qinzhiqiang.cn/gitlab-hello-world --set image.tag=$CI_COMMIT_SHA

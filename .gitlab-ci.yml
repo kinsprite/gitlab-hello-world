@@ -4,7 +4,7 @@ image: golang:1.12.7-alpine3.10
 variables:
   # Please edit to your GitLab project
   REPO_NAME: gitlab.qinzhiqiang.cn/ksqzq/gitlab-hello-world
-  CI_DEBUG_TRACE: "true"
+  CI_DEBUG_TRACE: "false"
 
 before_script:
   - cd $CI_PROJECT_DIR

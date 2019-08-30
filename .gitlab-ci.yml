@@ -65,9 +65,11 @@ building_job:
     #- docker push ...
 
 deploying_job:
-  #image: docker:stable
+  image: alpine/helm:latest
   stage: deploy
   tags: [docker]
   script:
     - echo this is deploying...
-    - echo helm install charts/gitlab-hello-world --name gitlab-hello-world --set image.repository=registry.qinzhiqiang.cn/gitlab-hello-world --set image.tag=$CI_COMMIT_SHA
+    - mkdir /root/.kube
+    - cp $KUBE_CONFIG_FILE /root/.kube/config
+    - helm install charts/gitlab-hello-world --name gitlab-hello-world --set image.repository=registry.qinzhiqiang.cn/gitlab-hello-world --set image.tag=$CI_COMMIT_SHA

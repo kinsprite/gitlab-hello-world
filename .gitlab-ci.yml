@@ -3,7 +3,7 @@ image: golang:1.12.7-alpine3.10
 
 variables:
   # Please edit to your GitLab project
-  REPO_NAME: 192.168.80.113/ksqzq/hello-world
+  REPO_NAME: gitlab.qinzhiqiang.cn/ksqzq/hello-world
   CI_DEBUG_TRACE: "false"
 
 before_script:
@@ -58,9 +58,9 @@ building_job:
   script:
     - echo this is building docker image...
     #- docker build -t gitlab-hello-world .
-    #- docker tag gitlab-hello-world:latest my-ubuntu-dev.com/gitlab-hello-world:$CI_COMMIT_SHA
-    - docker build -t my-ubuntu-dev.com/gitlab-hello-world:$CI_COMMIT_SHA .
-    - docker push my-ubuntu-dev.com/gitlab-hello-world:$CI_COMMIT_SHA
+    #- docker tag gitlab-hello-world:latest registry.qinzhiqiang.cn/gitlab-hello-world:$CI_COMMIT_SHA
+    - docker build -t registry.qinzhiqiang.cn/gitlab-hello-world:$CI_COMMIT_SHA .
+    - docker push registry.qinzhiqiang.cn/gitlab-hello-world:$CI_COMMIT_SHA
     #- docker tag ...
     #- docker push ...
 
@@ -70,4 +70,4 @@ deploying_job:
   tags: [docker]
   script:
     - echo this is deploying...
-    - echo helm install charts/gitlab-hello-world --name gitlab-hello-world --set image.repository=my-ubuntu-dev.com/gitlab-hello-world --set image.tag=$CI_COMMIT_SHA
+    - echo helm install charts/gitlab-hello-world --name gitlab-hello-world --set image.repository=registry.qinzhiqiang.cn/gitlab-hello-world --set image.tag=$CI_COMMIT_SHA

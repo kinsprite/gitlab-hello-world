@@ -73,4 +73,6 @@ deploying_job:
     - mkdir /root/.kube
     - cp $KUBE_CONFIG_FILE /root/.kube/config
     - helm init --client-only
-    - helm upgrade charts/gitlab-hello-world --install --name gitlab-hello-world --set image.repository=registry.qinzhiqiang.cn/gitlab-hello-world --set image.tag=$CI_COMMIT_SHA
+    #- helm delete --purge gitlab-hello-world
+    #- helm install charts/gitlab-hello-world --name gitlab-hello-world --set image.repository=registry.qinzhiqiang.cn/gitlab-hello-world --set image.tag=$CI_COMMIT_SHA
+    - helm upgrade gitlab-hello-world charts/gitlab-hello-world --install --set image.repository=registry.qinzhiqiang.cn/gitlab-hello-world --set image.tag=$CI_COMMIT_SHA
